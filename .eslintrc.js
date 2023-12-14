@@ -27,5 +27,14 @@ module.exports = {
     project: './tsconfig.json'
   },
   rules: {
+    '@typescript-eslint/strict-boolean-expressions': 0,
+    '@typescript-eslint/no-unsafe-argument': 0,
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: false
+      }
+    ]
+
   }
 }

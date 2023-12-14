@@ -32,7 +32,10 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@prisma/client": "^5.7.0",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "prisma": "^5.7.0"
   }
 }
