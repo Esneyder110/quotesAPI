@@ -1,10 +1,12 @@
 import { type ErrorRequestHandler, type Express } from 'express'
 import Boom from '@hapi/boom'
 import { Prisma } from '@prisma/client'
+import { ZodError } from 'zod'
 
 export function appErrorHandler (app: Express): void {
   app.use(logErrors)
   app.use(prismaErrorHandlerfunction)
+  app.use(zodErrorHandlerfunction)
   app.use(boomErrorHandlerfunction)
   app.use(genericErrorHandler)
 }
@@ -24,6 +26,20 @@ const prismaErrorHandlerfunction: ErrorRequestHandler = (err, req, res, next) =>
       }
     }
     next(err)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const zodErrorHandlerfunction: ErrorRequestHandler = (err, req, res, next) => {
+  try {
+    if (err instanceof ZodError) {
+      const errors = err.flatten()
+      const msg = JSON.stringify(errors.fieldErrors)
+      throw Boom.badRequest(msg)
+    } else {
+      next(err)
+    }
   } catch (error) {
     next(error)
   }
