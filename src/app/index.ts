@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 
 import { apiRouter } from './routes'
 import { appErrorHandler } from './error/errorHandler'
+import { swaggerDocs } from './docs/quotesV1'
 
 dotenv.config()
 
@@ -10,12 +11,14 @@ const app = express()
 app.use(express.json())
 
 const port = process.env.PORT
+if (!port) throw new Error('no hay puerto')
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello Quotes!')
 })
 
 apiRouter(app)
+swaggerDocs(app, +port)
 
 // Not found route
 app.use((req, res) => {
