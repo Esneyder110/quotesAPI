@@ -24,6 +24,10 @@ const prismaErrorHandlerfunction: ErrorRequestHandler = (err, req, res, next) =>
       if (err.code === 'P2025') {
         throw Boom.notFound()
       }
+
+      if (err.code === 'P2002') {
+        throw Boom.conflict()
+      }
     }
     next(err)
   } catch (error) {

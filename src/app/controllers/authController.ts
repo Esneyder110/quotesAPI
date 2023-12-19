@@ -19,7 +19,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
     const token = createUserJWT(rest)
     const payload: { user: SecureUser, token: string } = { user: rest, token }
-    res.json(payload)
+    res.json({ data: payload })
   } catch (error) {
     next(error)
   }
@@ -39,7 +39,7 @@ export const register = async (req: Request, res: Response, next: NextFunction):
     const { password, ...rest } = user
     const token = createUserJWT(rest)
     const payload: { user: SecureUser, token: string } = { user: rest, token }
-    res.status(201).json(payload)
+    res.status(201).json({ data: payload })
   } catch (error) {
     next(error)
   }
