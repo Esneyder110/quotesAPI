@@ -3,6 +3,7 @@ import { type NextFunction, type Request, type Response } from 'express'
 import { prisma } from '../services/db/prisma'
 import Boom from '@hapi/boom'
 import { CreateQuoteSchema, DeleteQuoteSchema, GetOneQuoteSchema, UpdateQuoteSchema } from '../models/quotesModel'
+import { getRandomInt } from '../utils/utils'
 
 export const getAllQoutes = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -20,6 +21,23 @@ export const getOneQoute = async (req: Request, res: Response, next: NextFunctio
     const quote = await prisma.quote.findUnique({
       where: { id }
     })
+
+    if (!quote) throw Boom.notFound('Quote not found')
+
+    res.json({ data: quote })
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getRandomQoute = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const quotes = await prisma.quote.findMany({ take: 1000 })
+    if (!quotes) throw Boom.notFound('Quotes not found')
+
+    const index = getRandomInt(quotes.length - 1)
+    console.log(index)
+    const quote = quotes[index]
 
     if (!quote) throw Boom.notFound('Quote not found')
 

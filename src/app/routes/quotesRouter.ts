@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { createQuote, deleteQuote, getAllQoutes, getOneQoute, updateQuote } from '../controllers/quotesController'
+import { createQuote, deleteQuote, getAllQoutes, getOneQoute, getRandomQoute, updateQuote } from '../controllers/quotesController'
 import { auth } from '../middleware/authMiddleware'
 
 const qouteRouter = Router()
@@ -28,6 +28,32 @@ const qouteRouter = Router()
  *
  */
 qouteRouter.route('/').get(getAllQoutes)
+
+/**
+ * @openapi
+ * /api/v1/quotes/random:
+ *   get:
+ *     summary: Get a Random Quote
+ *     tags:
+ *       - Quotes
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               properties:
+ *                 data:
+ *                   $ref: "#/components/schemas/Quote"
+ *       400:
+ *         description: Bad Request
+ *       404:
+ *         description: Quote not found
+ *       5XX:
+ *        description: Internal server error
+ *
+ */
+qouteRouter.route('/random').get(getRandomQoute)
 
 /**
  * @openapi
