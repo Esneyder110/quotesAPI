@@ -11,6 +11,13 @@ const qouteRouter = Router()
  *     summary: Get all Quotes
  *     tags:
  *       - Quotes
+ *     parameters:
+ *       - in: query
+ *         name: author
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Author name of the quotes
  *     responses:
  *       200:
  *         description: OK

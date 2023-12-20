@@ -52,3 +52,5 @@ export const GetOneQuoteSchema = QuoteSchema.pick({ id: true })
 export const DeleteQuoteSchema = QuoteSchema.pick({ id: true })
 export const CreateQuoteSchema = QuoteSchema.omit({ id: true })
 export const UpdateQuoteSchema = QuoteSchema.partial({ text: true, author: true })
+
+export const GetByAuthorSchema = QuoteSchema.pick({ author: true }).partial()

@@ -2,12 +2,22 @@ import { type NextFunction, type Request, type Response } from 'express'
 
 import { prisma } from '../services/db/prisma'
 import Boom from '@hapi/boom'
-import { CreateQuoteSchema, DeleteQuoteSchema, GetOneQuoteSchema, UpdateQuoteSchema } from '../models/quotesModel'
+import { CreateQuoteSchema, DeleteQuoteSchema, GetByAuthorSchema, GetOneQuoteSchema, UpdateQuoteSchema } from '../models/quotesModel'
 import { getRandomInt } from '../utils/utils'
 
 export const getAllQoutes = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const quotes = await prisma.quote.findMany()
+    const { author } = GetByAuthorSchema.parse(req.query)
+
+    const quotes = await prisma.quote.findMany({
+      where: {
+        author: {
+          contains: author,
+          mode: 'insensitive'
+        }
+      }
+    })
+
     res.json({ data: quotes })
   } catch (error) {
     next(error)
