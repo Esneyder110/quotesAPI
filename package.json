@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "dev": "cross-env NODE_ENV=development dotenv -e .env.dev nodemon ./src/app/index.ts",
-    "start": "cross-env NODE_ENV=production dotenv -e .env node ./build/src/app/index.js",
+    "start": "node ./build/src/app/index.js",
     "clean": "rm -rf node_modules/ build/",
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts . --fix",
     "test": "dotenv -e .env.test cross-env NODE_ENV=test jest --verbose",
