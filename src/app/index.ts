@@ -1,5 +1,6 @@
 import express, { type Request, type Response } from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
 
 import { apiRouter } from './routes'
 import { appErrorHandler } from './error/errorHandler'
@@ -8,6 +9,7 @@ import { swaggerDocs } from './docs/quotesV1'
 dotenv.config()
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 console.log(`[server]: Eviroment: ${process.env.NODE_ENV}`)
