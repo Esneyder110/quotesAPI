@@ -33,6 +33,6 @@ export const swaggerDocs = (app: Express, port: number): void => {
     res.send(swaggerSpec)
   })
   console.log(
-      `Version 1 Docs are available on http://localhost:${port}/api/v1/docs`
+      `[server]: Version 1 Docs are available on http://localhost:${port}/api/v1/docs`
   )
 }

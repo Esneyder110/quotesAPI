@@ -10,6 +10,7 @@ dotenv.config()
 const app = express()
 app.use(express.json())
 
+console.log(`[server]: Eviroment: ${process.env.NODE_ENV}`)
 const port = process.env.PORT
 if (!port) throw new Error('no hay puerto')
 
@@ -28,6 +29,11 @@ app.use((req, res) => {
 // error handler
 appErrorHandler(app)
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`)
 })
+
+export {
+  app,
+  server
+}
