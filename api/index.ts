@@ -36,7 +36,7 @@ app.use((req, res) => {
 
 // error handler
 appErrorHandler(app)
-if (enviroment !== 'development') {
+if (enviroment === 'development') {
   app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`)
   })
