@@ -1,4 +1,5 @@
 import { type Express } from 'express'
+import path from 'node:path'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 
@@ -18,7 +19,7 @@ const options = {
       }
     }
   },
-  apis: ['./src/routes/*', './src/models/*']
+  apis: [path.join(__dirname, '/../routes/*'), path.join(__dirname, '../models/*')]
 }
 // Docs in JSON format
 const swaggerSpec = swaggerJSDoc(options)
@@ -26,13 +27,17 @@ const swaggerSpec = swaggerJSDoc(options)
 // Function to setup our docs
 export const swaggerDocs = (app: Express, port: number): void => {
   // Route-Handler to visit our docs
-  app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+  app.use('/api/v1/docs', swaggerUi.serve)
+  app.get('/api/v1/docs', swaggerUi.setup(swaggerSpec, {
+    customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.10.3/swagger-ui.min.css'
+    // customfavIcon: '/api/v1/docs/favicon.png'
+  }))
   // Make our docs in JSON format available
   app.get('/api/v1/docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(swaggerSpec)
   })
   console.log(
-      `[server]: Version 1 Docs are available on http://localhost:${port}/api/v1/docs`
+      `[server]: Version 1 Docs are available on http://localhost:${port}/api/v1/docs/`
   )
 }
