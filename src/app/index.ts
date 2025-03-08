@@ -11,8 +11,9 @@ dotenv.config()
 const app = express()
 app.use(cors())
 app.use(express.json())
+const env = process.env.NODE_ENV
 
-console.log(`[server]: Eviroment: ${process.env.NODE_ENV}`)
+console.log(`[server]: Enviroment: ${env}`)
 const port = process.env.PORT
 if (!port) throw new Error('no hay puerto')
 
@@ -21,7 +22,10 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 apiRouter(app)
-swaggerDocs(app, +port)
+
+if (env !== 'test') {
+  swaggerDocs(app, +port)
+}
 
 // Not found route
 app.use((req, res) => {
@@ -30,12 +34,12 @@ app.use((req, res) => {
 
 // error handler
 appErrorHandler(app)
-
-const server = app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`)
-})
+if (env !== 'test') {
+  app.listen(port, () => {
+    console.log(`[server]: Server is running at http://localhost:${port}`)
+  })
+}
 
 export {
-  app,
-  server
+  app
 }
