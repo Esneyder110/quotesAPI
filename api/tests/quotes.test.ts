@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, test } from '@jest/globals'
 import supertest from 'supertest'
-import { app, server } from '../index'
+import app from '../index'
 import { prisma } from '../services/db/prisma'
 import { type Prisma } from '@prisma/client'
 
@@ -134,6 +134,6 @@ describe('quotes', () => {
   })
 })
 
-afterAll(() => {
-  server.close()
+afterAll(async () => {
+  await prisma.$disconnect()
 })

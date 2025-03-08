@@ -7,13 +7,16 @@ import { appErrorHandler } from './error/errorHandler'
 import { swaggerDocs } from './docs/quotesV1'
 
 dotenv.config()
+const { NODE_ENV, PORT } = process.env
+const env = { enviroment: NODE_ENV, port: PORT }
 
 const app = express()
 app.use(cors())
 app.use(express.json())
+const enviroment = env.enviroment
 
-console.log(`[server]: Eviroment: ${process.env.NODE_ENV}`)
-const port = process.env.PORT
+console.log(`[server]: Enviroment: ${enviroment}`)
+const port = env.port
 if (!port) throw new Error('no hay puerto')
 
 app.get('/', (req: Request, res: Response) => {
@@ -21,7 +24,10 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 apiRouter(app)
-swaggerDocs(app, +port)
+
+if (enviroment !== 'test') {
+  swaggerDocs(app, +port)
+}
 
 // Not found route
 app.use((req, res) => {
@@ -30,12 +36,10 @@ app.use((req, res) => {
 
 // error handler
 appErrorHandler(app)
-
-const server = app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`)
-})
-
-export {
-  app,
-  server
+if (enviroment !== 'development') {
+  app.listen(port, () => {
+    console.log(`[server]: Server is running at http://localhost:${port}`)
+  })
 }
+
+export default app
