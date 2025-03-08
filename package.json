@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": "20"
-  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development dotenv -e .env.dev nodemon ./api/index.ts",
     "start": "node ./build/api/index.js",
