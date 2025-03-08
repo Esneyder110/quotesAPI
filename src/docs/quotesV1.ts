@@ -3,7 +3,6 @@ import path from 'node:path'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 
-console.log('DIR', __dirname)
 // Basic Meta Informations about our API
 const options = {
   definition: {
