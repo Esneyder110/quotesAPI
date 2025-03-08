@@ -28,7 +28,10 @@ const swaggerSpec = swaggerJSDoc(options)
 export const swaggerDocs = (app: Express, port: number): void => {
   // Route-Handler to visit our docs
   app.use('/api/v1/docs', swaggerUi.serve)
-  app.get('/api/v1/docs', swaggerUi.setup(swaggerSpec))
+  app.get('/api/v1/docs', swaggerUi.setup(swaggerSpec, {
+    customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.10.3/swagger-ui.min.css'
+    // customfavIcon: '/api/v1/docs/favicon.png'
+  }))
   // Make our docs in JSON format available
   app.get('/api/v1/docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
