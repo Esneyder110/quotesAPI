@@ -13,7 +13,8 @@
     "test:watch": "npm run test -- --watch",
     "prisma:dev:migration": "dotenv -e .env.dev prisma db push",
     "prisma:prod:migration": "dotenv -e .env prisma db push",
-    "prisma:test:migration": "cross-env NODE_ENV=test dotenv -e .env.test prisma db push"
+    "prisma:test:migration": "cross-env NODE_ENV=test dotenv -e .env.test prisma db push",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
