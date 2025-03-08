@@ -8,9 +8,9 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "dev": "cross-env NODE_ENV=development dotenv -e .env.dev nodemon ./src/app/index.ts",
-    "start": "node ./build/src/app/index.js",
-    "start:local": "cross-env NODE_ENV=production dotenv -e .env node ./build/src/app/index.js",
+    "dev": "cross-env NODE_ENV=development dotenv -e .env.dev nodemon ./api/index.ts",
+    "start": "node ./build/api/index.js",
+    "start:local": "cross-env NODE_ENV=production dotenv -e .env node ./build/api/index.js",
     "clean": "rm -rf node_modules/ build/",
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts . --fix",
     "test": "dotenv -e .env.test cross-env NODE_ENV=test jest --verbose",
