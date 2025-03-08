@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, test } from '@jest/globals'
 import supertest from 'supertest'
-import app from '../index'
+import app from '../../api/index'
 import { prisma } from '../services/db/prisma'
 import { type Prisma } from '@prisma/client'
 

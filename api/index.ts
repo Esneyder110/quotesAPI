@@ -2,9 +2,9 @@ import express, { type Request, type Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 
-import { apiRouter } from './routes'
-import { appErrorHandler } from './error/errorHandler'
-import { swaggerDocs } from './docs/quotesV1'
+import { apiRouter } from '../src/routes'
+import { appErrorHandler } from '../src/error/errorHandler'
+import { swaggerDocs } from '../src/docs/quotesV1'
 
 dotenv.config()
 const { NODE_ENV, PORT } = process.env
